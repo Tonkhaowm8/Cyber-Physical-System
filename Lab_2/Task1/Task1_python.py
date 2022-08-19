@@ -17,10 +17,10 @@ with serial.Serial('/dev/cu.usbmodem14201',9600) as serArd:
         if serArd.inWaiting() > 0:
             rec_time = datetime.now().strftime('%H:%M:%S.%f')
             myData = serArd.readline().decode().rstrip()
-            calData = float(myData) / 57
+            calData = float(myData) * 104 * 10 ** (-4)
             finalData = round(calData, 2)
             try:
                 myData = float(myData)
-                print(f"Raw data at {rec_time} : {finalData}")
+                print(f"The distance is {finalData} cm")
             except:
                 print("No data") 
