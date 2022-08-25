@@ -19,8 +19,10 @@ with serial.Serial('/dev/cu.usbmodem14201',9600) as serArd:
             myData = serArd.readline().decode().rstrip()
             calData = float(myData) * 104 * 10 ** (-4)
             finalData = round(calData, 2)
+            finalSpeed = abs((finalData - timeStored)) / float(myData) * 10 ** 3
+            timeStored = round(finalData, 2) 
             try:
                 myData = float(myData)
-                print(f"The distance is {finalData} cm")
+                print(f"The speed is {finalData} cm / s")
             except:
                 print("No data") 
