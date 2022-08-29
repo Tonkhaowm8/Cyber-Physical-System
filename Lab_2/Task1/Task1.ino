@@ -15,7 +15,7 @@ void loop() {
     String incomingBytes = Serial.readString();
     SampleTime = incomingBytes.toInt();
     Serial.println(incomingBytes);
-    Serial.println("Here");
+    Serial.println(0);
   }
   digitalWrite(trigPin,LOW);
   delayMicroseconds(2);
