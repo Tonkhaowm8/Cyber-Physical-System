@@ -4,7 +4,7 @@ def main():
     user_input = ""
 
     print('Enter character by character.')
-    print('Allowed characters are: a, b, c.')
+    print('Allowed characters are: tick')
     print('Use EOF (Ctrl+D) to end input.')
 
     # defining our states - just giving them names for readability
@@ -19,12 +19,16 @@ def main():
 
     # a hash map outlining possible transitions
     transitions = {
-        (s1, 'a'): s1,
-        (s1, 'b'): s2,
-        (s2, 'c'): s3,
-        (s2, 'a'): s1
+        (s1, 'tick'): s2,
+        (s2, 'tick'): s3,
+        (s3, 'tick'): s1,
         # we could add error states here,
         # but we handle that differently later
+    }
+    outputs = {
+        (s1): "Red",
+        (s2): "Green",
+        (s3): "Orange" ,
     }
 
     while True:
@@ -32,8 +36,8 @@ def main():
         # reading input
         try:
             c = input()
-            user_input += c
-            if c != 'a' and c != 'b' and c != 'c':
+            user_input += " " + c
+            if c != "tick":
                 raise ValueError("String doesn't fit the requirements. Letter not in the alphabet.")
         except EOFError:
             break
@@ -44,7 +48,8 @@ def main():
         # performing transition
         try:
             state = transitions[(state, c)]
-            print("Current state: " + state)
+            color = outputs[state]
+            print("Current Color: " + color)
             # if this were a Meley machine, this is where we'd add output
             # the print itself is technically a transition output, but
             # that's here just so we could see what's going on while learning
